@@ -1,35 +1,97 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-   <head>
-      <meta charset="utf-8">
-      <title>Register Form</title>
-      <link rel="stylesheet" href="style.css">
-
-   <body>
-      <div class="wrapper">
-         <div class="content">
-            <h1>Register Now!</h1>
-            <form action="#">
-               <div class="input-box">
-                  <span class="fa fa-user"></span>
-                  <input type="text" required placeholder="Username">
-               </div>
-               <div class="input-box">
-                <span class="fa fa-user"></span>
-                <input type="text" required placeholder="Email or Phone">
-             </div>
-               <div class="input-box">
-                  <span class="fa fa-lock"></span>
-                  <input type="password" class="pass-key" required placeholder="Password">
-               </div>
-               <div class="register-link">
-                  <button type="submit" class="btn">Register</button>
-               </div>
-            </form>
-            <div class="register-link">
-               <p>have an account? <a href="index.html">Login</a></p>
+<head>
+   <meta charset="utf-8">
+   <title>Register Form</title>
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <div class="wrapper">
+      <div class="content">
+         <h1>Register Now!</h1>
+         <form id="registerForm" action="#" novalidate>
+            <div class="input-box">
+               <span class="fa fa-user"></span>
+               <input type="text" id="username" name="username" required placeholder="Username">
+               <div class="error" id="usernameError"></div>
             </div>
+            <div class="input-box">
+               <span class="fa fa-user"></span>
+               <input type="text" id="email" name="email" required placeholder="Email">
+               <div class="error" id="emailError"></div>
+            </div>
+            <div class="input-box">
+               <span class="fa fa-lock"></span>
+               <input type="password" id="password" name="password" class="pass-key" required placeholder="Password">
+               <div class="error" id="passwordError"></div>
+            </div>
+            <div class="input-box">
+               <span class="fa fa-lock"></span>
+               <input type="password" id="confirmPassword" name="confirmPassword" class="pass-key" required placeholder="Confirm Password">
+               <div class="error" id="confirmPasswordError"></div>
+            </div>
+            <div class="register-link">
+               <button type="submit" class="btn">Register</button>
+            </div>
+            <div id="formMessage" class="success"></div>
+         </form>
+         <div class="register-link">
+            <p>have an account? <a href="index.html">Login</a></p>
          </div>
       </div>
-   </body>
+   </div>
+
+   <script>
+      document.getElementById('registerForm').addEventListener('submit', function(event) {
+         event.preventDefault();
+
+         // Clear previous errors and messages
+         document.getElementById('usernameError').textContent = '';
+         document.getElementById('emailError').textContent = '';
+         document.getElementById('passwordError').textContent = '';
+         document.getElementById('confirmPasswordError').textContent = '';
+         document.getElementById('formMessage').textContent = '';
+
+         let isValid = true;
+
+         // Validate Username (at least 3 characters)
+         const username = document.getElementById('username').value.trim();
+         if (username.length < 3) {
+            document.getElementById('usernameError').textContent = 'Username must be at least 3 characters long.';
+            isValid = false;
+         }
+
+         // Validate Email or Phone
+         const emailOrPhone = document.getElementById('email').value.trim();
+         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+         const phonePattern = /^\+?\d{10,15}$/; // simple phone validation (digits with optional +, 10-15 digits)
+         if (!emailPattern.test(emailOrPhone) && !phonePattern.test(emailOrPhone)) {
+            document.getElementById('emailError').textContent = 'Please enter a valid email or phone number.';
+            isValid = false;
+         }
+
+         // Validate Password (at least 6 characters)
+         const password = document.getElementById('password').value;
+         if (password.length < 6) {
+            document.getElementById('passwordError').textContent = 'Password must be at least 6 characters long.';
+            isValid = false;
+         }
+
+         // Validate Confirm Password matches Password
+         const confirmPassword = document.getElementById('confirmPassword').value;
+         if (confirmPassword !== password) {
+            document.getElementById('confirmPasswordError').textContent = 'Passwords do not match.';
+            isValid = false;
+         }
+
+         if (isValid) {
+            // Show success message
+            document.getElementById('formMessage').textContent = 'Registration successful!';
+            // Optionally, you can submit the form or reset it here
+            // this.submit(); // to submit
+            // this.reset();  // to reset form
+         }
+      });
+   </script>
+</body>
 </html>

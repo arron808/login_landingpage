@@ -162,3 +162,15 @@ body {
   padding-top: 70px;
 }
 }
+
+/* Simple styles for error and success messages */
+.error {
+  color: rgb(255, 0, 0);
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+ .success {
+  color: rgb(9, 235, 9);
+  font-size: 1em;
+  margin-top: 10px;
+}

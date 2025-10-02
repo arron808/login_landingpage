@@ -9,25 +9,46 @@
 </head>
 <body>
   <div class="wrapper">
-    <form action="">
+    <form action="" id="loginForm">
       <h1>Login</h1>
       <div class="input-box">
-        <input type="text" placeholder="Username" required>
+        <input type="text" id="username" placeholder="Username" required>
         <span class='bx bxs-user'></span>
       </div>
       <div class="input-box">
-        <input type="password" placeholder="Password" required>
+        <input type="password" id="password" placeholder="Password" required>
         <span class='bx bxs-lock-alt' ></span>
       </div>
       <div class="remember-forgot">
         <label><input type="checkbox">Remember Me</label>
         <a href="#">Forgot Password</a>
       </div>
-     <button type="button" class="btn" onclick="location.href='index1.html'">Login</button>
+      <button type="button" class="btn" id="loginBtn">Login</button>
       <div class="register-link">
         <p>Dont have an account? <a href="signup.html">Register</a></p>
       </div>
     </form>
   </div>
+
+  <script>
+    document.getElementById('loginBtn').addEventListener('click', function() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      // Static credentials
+      const validUsername = 'admin';
+      const validPassword = '12345';
+
+      if (username === validUsername && password === validPassword) {
+        // Redirect to Landing Page (assuming 'index1.html' is the Landing Page)
+        window.location.href = 'index1.html';
+      } else {
+        alert('Invalid username or password. Please try again.');
+        // Optionally clear the fields
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+      }
+    });
+  </script>
 </body>
 </html>
